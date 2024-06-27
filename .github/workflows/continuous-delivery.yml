@@ -13,15 +13,17 @@ jobs:
         # We need the full history for the commitlint task
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.ref }}
       - name: Install Task
         uses: arduino/setup-task@v2
       - name: Install Dagger
         env:
           # renovate: datasource=github-tags depName=dagger/dagger versioning=semver
-          DAGGER_VERSION: 0.11.9
+          DAGGER_VERSION: 0.11.3
         run: |
           curl -L https://dl.dagger.io/dagger/install.sh | BIN_DIR=$HOME/.local/bin sh
       - name: Run CI task
+        env:
+          COMMIT_LEN: ${{ github.event.pull_request.commits }}
         run: |
           task ci
