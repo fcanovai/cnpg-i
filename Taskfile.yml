@@ -55,6 +55,7 @@ tasks:
       # renovate: datasource=git-refs depName=commitlint lookupName=https://github.com/cloudnative-pg/daggerverse currentValue=main
       DAGGER_COMMITLINT_SHA: f09d41cb90701db446048a9f20eb03495e50f727
     cmds:
+      # TEST
       - dagger -s call -m github.com/cloudnative-pg/daggerverse/commitlint@${DAGGER_COMMITLINT_SHA} lint --source . --args "--from=origin/main" stdout
 
   uncommitted:
